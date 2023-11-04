@@ -1,0 +1,269 @@
+\documentclass{harvardml}
+
+% Authors: Amir Shanehsazzadeh, Andrew Kim, Nari Johnson (Jan 2021)
+% Edited by: Max Guo, Raphael Pellegrin, Katherine Tian (Jan 2022)
+
+% Adapted from CS281 Fall 2019 section 0 notes
+
+% This tex file relies on
+% the presence of two files:
+% harvardml.cls and common.sty
+
+\course{CS181-s18}
+\assignment{CS181 Pset 0}
+\duedate{Never}
+
+
+\usepackage{url}
+\usepackage{amsfonts, amsmath, amsthm}
+\usepackage{listings}
+\usepackage[shortlabels]{enumitem}
+\usepackage{hyperref}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\theoremstyle{plain}
+\usepackage[textsize=tiny]{todonotes}
+
+% Some useful macros.
+\newcommand{\given}{\,|\,}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\var}{\text{Var}}
+\newcommand{\cov}{\text{Cov}}
+\newcommand{\p}{\partial}
+\newcommand{\mba}{\mathbf{a}}
+\newcommand{\mbb}{\mathbf{b}}
+\newcommand{\mbx}{\mathbf{x}}
+\newcommand{\mcX}{\mathcal{X}}
+\newcommand{\mcY}{\mathcal{Y}}
+\newcommand{\boldw}{\mathbf{w}}
+\newcommand{\mbxt}{\tilde{\mathbf{x}}}
+\newcommand{\Sigmat}{\tilde{\Sigma}}
+\newcommand{\mbz}{\mathbf{z}}
+\newcommand{\mbw}{\mathbf{w}}
+\newcommand{\mcN}{\mathcal{N}}
+\newcommand{\mcP}{\mathcal{P}}
+\newcommand{\eps}{\epsilon}
+\newcommand{\trans}{\intercal}
+\newcommand{\Ut}{\tilde{U}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\angstrom}{\textup{\AA}}
+\renewcommand{\v}[1]{\mathbf{#1}}
+
+
+\usepackage{xcolor}
+\newcount\Comments  % 0 suppresses notes to selves in text
+\Comments = 1
+\newcommand{\kibitz}[2]{\ifnum\Comments=1{\color{#1}{#2}}\fi}
+\newcommand{\dcp}[1]{\kibitz{blue}{[DCP: #1]}}
+
+\begin{document}
+
+The below problems were written so that you can self-assess your comfort with CS 181's mathematical prerequisites.  We strongly encourage students who have completed the prerequisites to still complete this optional HW to review concepts that are foundational to the course.  The difficulty level of these problems is not intended to reflect the difficulty of future homework assignments but rather test background conceptual understanding.
+
+If you find these problems to be very challenging, please check out the Section 0 document and/or reach out to one of the TFs. If this is the case, then CS181 may be more difficult for you but still doable if you put in extra effort. Even if you find this HW easy, we still recommend reading through the Section 0 notes for review.
+
+The problems are divided up into two portions: Math and Programming.
+
+\section{Mathematical Problems}
+This section checks for familiarity with matrix manipulation, matrix calculus, and probability/statistics. You may find it helpful to reference the \href{https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf}{Matrix Cookbook}. \\
+
+\begin{problem}
+		    Given the matrix $\mathbf{X}$ and the vectors $\mathbf{y}$ and $\mathbf{z}$  below:
+		    \begin{equation*}
+		        \mathbf{X} = \begin{pmatrix}
+		        x_{11} & x_{12}\\
+		        x_{21} & x_{22}
+		        \end{pmatrix} \hspace{10pt} \mathbf{y} = \begin{pmatrix} y_{1} \\ y_{2} \end{pmatrix} \hspace{10pt} \mathbf{z} = \begin{pmatrix} z_{1} \\ z_{2} \end{pmatrix} \hspace{10pt} 
+		    \end{equation*}  
+		    \begin{enumerate}[label=(\alph*)]
+		        \item Expand $\mathbf{X}\mathbf{y} + \mathbf{z}$.
+		        
+		        \item Expand $\mathbf{y^T}\mathbf{X}\mathbf{y}$.
+
+		    \end{enumerate}
+		\end{problem}
+
+\begin{problem}
+
+Assume matrix $\mathbf{X}$ has shape $(n \times d)$, and vector $\mathbf{w}$ has shape $(d \times 1)$.
+
+\begin{enumerate}[label=(\alph*)]
+		        
+		        \item What shape is $\mathbf{y} =  \mathbf{X} \mathbf{w}$?
+		        
+		        \item What shape is $(\mathbf{X}^T \mathbf{X})^{-1}$?
+		        
+		        \item Using $\mathbf{y}$ from part (a), what shape is $(\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{y}$?
+		        
+		        \item Assume vector $\mathbf{w}' = \mathbf{w}^T$.  What shape is $\mathbf{y}' = \mathbf{X}\mathbf{w}'^T $?  
+
+		    \end{enumerate}
+
+\end{problem}
+
+\begin{problem}
+        Write $\mathbf{u} = \mathbf{u}^\parallel + \mathbf{u^\perp}$ where $\mathbf{u}^\parallel = \frac{\langle \v u, \v v \rangle}
+				{\langle \v v, \v v \rangle} \v v$. is the projection of $\v u$ onto $\v v$. Prove that $\langle \mathbf{u}^\parallel,
+		\mathbf{u^\perp} \rangle = 0$ and that $\v u = \mathbf{u}^\parallel$ if and only if $\v u$ is a scaled multiple of $\v v$.
+        \end{problem}
+
+
+\begin{problem}
+                For an invertible matrix $\mathbf{A}$ show that $|\mathbf{A}^{-1}| = \frac{1}{|\mathbf A|}$ where $|\mathbf A|$ is the determinant of $\mathbf{A}.$
+                
+                
+\end{problem}
+        
+        
+        
+
+\begin{problem} 
+		    Solve the following vector/matrix calculus problems. In all of the below, $\mathbf{x}$ and $\mathbf{w}$ are column vectors (i.e. $n \times 1$ vectors).  It may be helpful to refer to \href{https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf}{\emph{The Matrix Cookbook}} by Petersen and Pedersen, specifically sections 2.4, 2.6, and 2.7.
+		    
+		    \begin{enumerate} [label=(\alph*)]
+		        \item Let $f(\mathbf{x}) = \mathbf{x}^T \mathbf{x}$. Find $\nabla_{\mathbf{x}} f(\mathbf{x}) = \frac{\delta}{\delta \mathbf{x}} f(\mathbf{x})$.
+		        
+		        \emph{Hint}: As a first step, you can expand $\mathbf{x}^T \mathbf{x} = (x_1^2 + x_2^2 + ... + x_n^2)$, where $\mathbf{x} = (x_1, ..., x_n)$. 
+		        
+		        \item Let $f(\mathbf{w},\mathbf{x}) = (1 - \mathbf{w}^T \mathbf{x})^2$. Find $\nabla_{\mathbf{w}} f(\mathbf{w},\mathbf{x}) = \frac{\delta}{\delta \mathbf{w}} f(\mathbf{w},\mathbf{x})$.
+		        
+		        % TODO I'm assuming this was the right gradient?
+		        \item Let $\mathbf{A}$ be a symmetric $n$-by-$n$ matrix. If $f(\mathbf{w},\mathbf{x}) = \frac{1}{2}\mathbf{x}^T \mathbf{A} \mathbf{x} + \mathbf{w}^T \mathbf{x}$, find $\nabla_{\mathbf{x}} f(\mathbf{w},\mathbf{x}) = \frac{\delta}{\delta \mathbf{x}} f(\mathbf{w},\mathbf{x})$.
+		        \end{enumerate}
+		\end{problem}
+
+\begin{problem} Solve the following: 
+\begin{enumerate} [label=(\alph*)] 
+\item Verify that $\var(aX + b) = a^2\var(X)$.
+
+\emph{Hint}: As a first step, you can expand $\var(aX + b)$ using the definition of variance.  Simplify using properties of expectations.
+\item Suppose that $X_1, ..., X_n$ are i.i.d., scalar random variables with mean $\mu$ and variance $\sigma^2$. Let $\Bar{X}$ be the mean $\frac{1}{n}\sum_i^n X_i$. Find $\E(\Bar{X})$ and $\var(\Bar{X})$.
+\end{enumerate}
+\end{problem}
+		
+		    
+\begin{problem}
+    Prove or come up with counterexamples for the following statements:
+    \begin{enumerate}[label=(\alph*)]
+        \item  Random variables $A$ and $B$ are conditionally independent given $C$.  Does this imply that $A$ and $B$ are unconditionally independent?
+        \item  Random variables $A$ and $B$ are independent.  Does this imply that $A$ and $B$ are conditionally independent given some random variable $C$?
+    \end{enumerate}
+
+\end{problem}
+\begin{problem}
+    Suppose you undergo a test for a disease whose frequency in the population is 1\% (i.e. the probability of any given person having the disease is 1\%). The test for the disease has a 5\% false positive rate (i.e. given that you don't have the disease, there's a 5\% chance you test positive) and a 10\% false negative rate (i.e. given that you do have the disease, there's a 10\% chance that you test negative). \\
+    
+    \noindent Suppose you take the test and it comes back positive. What is the probability that you have the disease? 
+\end{problem}
+
+\begin{problem}
+    Show that for scalar random variables $X, Y$ that $\var(X+Y) = \var(X) + \var(Y) + 2\cov(X, Y)$.
+    \end{problem}
+    
+\begin{problem}
+
+Using the probability density function (PDF) of $X \sim \mathcal{N}(0, 1)$ show that $X$ has mean $0$ and variance $1$. \\
+\\
+\emph{Hint}: The PDF is $p(x) = \frac{1}{\sqrt{2\pi}} 
+				\exp\left( -\frac{1}{2} x^2 \right).$ For the mean, you can reason about the properties of the PDF itself to get the answer without integration techniques. For the variance, use integration by parts with $u=x$ and $\mathrm{d}v = xe^{-x^2/2} \mathrm{d}x$ and the fact that the PDF itself integrates to $1$.
+\end{problem}
+
+\begin{problem}
+
+(Optional) A random point $(X, Y, Z)$ is chosen uniformly in the ball 
+$$B = \{(x, y, z): x^2 + y^2 + z^2 \leq 1\}$$
+
+\begin{enumerate} [label=(\alph*)] 
+\item Find the joint PDF of $(X, Y, Z)$.
+\item Find the joint PDF of  $(X, Y)$ (this is the marginal distribution on $X$ and $Y$).
+\item Write an expression for the marginal PDF of $X$, as an integral.
+
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+Suppose we randomly sample a Harvard College student from the undergraduate population.  Let $X$ be the indicator of the sampled individual concentrating in computer science, and let $Y$ be the indicator that they work in the tech industry after graduation.\\
+
+Suppose that the below table represented the joint probability mass function (PMF) of $X$ and $Y$:
+
+\begin{center}
+\begin{tabular}{ c | c c }
+  & $Y = 1$ & $Y = 0$ \\ \hline\\
+ $X = 1$ & $\frac{10}{100}$ & $\frac{5}{100}$ \\  \\
+ $X = 0$ & $\frac{15}{100}$ & $\frac{70}{100}$ \\   
+\end{tabular}
+\end{center}
+
+
+\begin{enumerate} [label=(\alph*)] 
+\item Calculate the marginal probability $P(Y = 1)$.  In the context of this problem, what does this probability represent?
+\item Calculate the conditional probability $P(Y = 1 | X = 1)$.  In the context of this problem, what does this probability represent?
+\item Are $X$ and $Y$ independent?  Why or why not? What is the interpretation of this?
+
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+In her most recent work-from-home shopping spree, Nari decided to buy several house plants.  She would like for them to grow as tall as possible, but needs your calculus help to understand how to best take care of them.
+
+\begin{enumerate} [label=(\alph*)] 
+\item After perusing the internet, Nari learns that the height $y$ in mm of her Weeping Fig plant can be directly modeled as a function of the oz of water $x$ she gives it each week:
+
+$$ y = - 3x^2 + 72x + 70$$
+
+Is this function concave, convex, or neither?  Explain why or why not.
+
+\item Solve analytically for the critical points of this expression (i.e., where the derivative of the function is zero).  For each critical point, use the second-derivative test to identify if each point is a  max or min point, and use arguments about the global structure (e.g., concavity or convexity) of the function to argue whether this is a local or global optimum. 
+
+\item How many oz per week should Nari water her plant to maximize its height? With this much water how tall will her plant grow?
+
+\item Nari also has a Money Tree plant.  The height $y$ in mm of her Money Tree can be directly modeled as a function of the oz of water $x$ she gives it per week:
+
+$$ y = - x^4 + 16 x^3 - 93 x^2 + 230 x - 190$$
+
+Is this function concave, convex, or neither?  Explain why or why not.
+
+\end{enumerate}
+
+
+\end{problem}
+
+\noindent Credits:  Problems 11 and 12 were inspired by Exercise 7.19 and  Example 7.1.5 in Blitzstein \& Hwang's ``Introduction to Probability''.
+
+\newpage
+
+\section{Programming Exercises}
+We expect students to be familiar with Python and comfortable with writing non-trivial programs. Later homeworks in the course will often require working with data and matrices, where the \verb|numpy| package will be helpful. \\
+
+\begin{problem}
+First, we have a Python data exercise.
+
+\begin{enumerate}
+    \item Using the random seed 181, generate $N = 20$ data points $(x,y)$ where $x$ is uniformly sampled from $(-10,10)$ and $y$ is uniformly sampled from $(20,80)$. (To get consistent answers with the staff solution, use \verb|numpy|.) 
+    \item (Optional) Save your data into two columns in a .csv file, and read it back out. 
+    \item Let $f(x,y) = (y+10) \cdot x/5$. Compute $z_i = f(x_i,y_i)$ for $i \in 1 \ldots N$. Report the mean and standard deviation of $\{z_1, \ldots, z_N\}$.
+    \item Identify the data point $(x,y)$ with the largest $y$-value in the data set.
+    \item Compute the sum of all the $y$-values of points with positive $x$-value.
+    % Maybe some random n^2 function that will take 2 nested for-loops or some algorithmic thing?
+\end{enumerate}
+\end{problem}
+
+
+
+\begin{problem}
+Here, we will practice using the Python package \verb|numpy|.
+
+\begin{enumerate}
+    \item Using \verb|np.arange| or \verb|np.linspace|, create a \verb|numpy| array of all the nonnegative integers starting at $0$ and ending at $9$.
+    \item Using \verb|np.reshape|, reshape the array so it's 2 dimensional with size $(2, 5)$. Hint: the first row should be $[0, 1,2,3,4]$.
+    \item Using \verb|np.vstack|, add a row to the bottom of the matrix from the previous part so that the matrix contains all of the nonnegative integers starting from $0$ and ending at $14$ in ascending order left to right, then top to bottom.
+    \item Using \verb|np.ones|, \verb|np.reshape|, and \verb|np.hstack|, add a column to the right of the matrix from the previous part that is all ones.
+    \item Using \verb|np.dot|, perform a matrix-vector multiplication with the matrix from the previous part with the vector $[0, 1, 0, 0, 0, 0]$.
+    \item Using \verb|np.sum| and some of your own logic, find the sum of all the numbers in the matrix from 4. that are even.
+\end{enumerate}
+\end{problem}
+
+\end{document}
