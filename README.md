@@ -1,7 +1,13 @@
 # CS 181 Spring 2024 Homeworks
 
-Homeworks will be released from this GitHub repository.
+Homeworks will be released from this GitHub repository. The recommended way to download files is to clone this repository using
 
-See the schedule below:
+```
+git clone https://github.com/harvard-ml-courses/cs181-s24-homeworks.git
+```
 
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQabh8HnxP3V-ThyikOCD2K8xmUeoslgsYMTPL5ECh0T6B-NeFUGxXc-K7UCj-OsEtFhZazyp1Xay5m/pubhtml?gid=1863065080&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+and then run `git pull` to fetch the most recent updates. You can also click the green `Code` button and then `Download ZIP`.
+
+[See the course schedule here.](https://docs.google.com/spreadsheets/d/1BHySWJvxphouMu7tVaXKcg0cptAbmOKlCTjVtOPCLWw/edit?usp=sharing)
+
+Please request clarifications through [our Ed discussion board](https://edstem.org/us/courses/51511/discussion/) under the corresponding label.
