@@ -81,24 +81,30 @@ In this problem, you will be working with one-dimensional Kalman filters, which 
     z_{t+1} &= z_{t} + \epsilon_{t} \\
     x_{t} & = z_{t} + \gamma_{t}
   \end{eqnarray*}
- where $\epsilon_t \sim N(0,\sigeps^2)$ and $\gamma_t \sim N(0,\siggam^2)$. The value of the first hidden state follows the distribution $p(z_o) \sim N(\muzp,\sigzp^2)$.
+ where $\epsilon_t \sim N(0,\sigeps^2)$ and $\gamma_t \sim N(0,\siggam^2)$. The value of the first hidden state follows the distribution $z_0 \sim N(\muzp,\sigzp^2)$.
 
 \begin{enumerate}
   \item Draw the graphical model corresponding to the one-dimensional Kalman filter.
   \item In this part we will walk through the derivation of the conditional distribution of $z_t|(x_0, \cdots, x_{t})$.
   \begin{enumerate}
-      \item How does the quantity $z_t|(x_0, \cdots, x_{t})$ relate to $\alpha_t(z_t)$ and $\beta_t(z_t)$ from the forward-backward algorithm for HMMs?  What is the operation we are performing called?
-      \item The distribution of $p(z_t|x_0, \cdots, x_t)$ will be Normal with a mean $\mu_t$ and a variance $\sigma_t^2$. We start our derivation of $\mu_t$ and $\sigma_t^2$ by writing:
+      \item How does the quantity $p(z_t| x_0, \cdots, x_{t})$ relate to $\alpha_t(z_t)$ and $\beta_t(z_t)$ from the forward-backward algorithm for HMMs?  What is the operation we are performing called?
+      \item The above quantity $p(z_t|x_0, \cdots, x_t)$ is the PDF for a Normal distribution with mean $\mu_t$ and variance $\sigma_t^2$. We start our derivation of $\mu_t$ and $\sigma_t^2$ by writing:
       \begin{align*}
           p(z_t|x_0, \cdots, x_t) \propto p(x_t|z_t)p(z_t|x_0, \cdots x_{t-1})
       \end{align*}
-      What is the distribution of $p(x_t|z_t)$?
-      \item Suppose we are given the mean and variance of the distribution $z_{t-1}|(x_0, \cdots, x_{t-1})$ to be $\mu_{t-1}$, $\sigma^2_{t-1}$. Find the distribution of $z_t|(x_0, \cdots x_{t-1})$\\
-      \textbf{Hint 1}: You may use the fact that 
+      What is $p(x_t|z_t)$ equal to?
+      \item Suppose we are given the mean and variance of the distribution $z_{t-1}|(x_0, \cdots, x_{t-1})$ as $\mu_{t-1}$, $\sigma^2_{t-1}$. What is $p(z_t|x_0, \cdots x_{t-1})$ equal to? 
+      
+      \textbf{Hint 1}: Start by marginalizing out over $z_{t-1}$.
+      
+      \textbf{Hint 2}: You may cite the fact that 
       \[\int N(y-x ; \mu_a, \sigma^2_a)N(x ; \mu_b, \sigma^2_b)dx = N(y ; (\mu_a + \mu_b), (\sigma^2_a + \sigma^2_b))\]
-      \textbf{Hint 2}: Start by marginalizing out over $z_{t-1}$.
-      \item Combine your answers from parts (b) and (c) to get a final expression for $p(z_t|x_0, \cdots, x_t)$. Feel free to use the result that the product of two Normal PDFs yields a Normal PDF. Report the mean $\mu_t$ and variance $\sigma_t^2$ of this Normal.\\
-      \textbf{Hint}: Rewrite $N(x_t; z_t, \siggam^2)$ as $N(z_t; x_t, \siggam^2)$.
+      \item Combine your answers from parts (b) and (c) to get a final expression for $p(z_t|x_0, \cdots, x_t)$. Report the mean $\mu_t$ and variance $\sigma_t^2$ of this Normal.
+      
+      \textbf{Hint 1}: Rewrite $N(x_t; z_t, \siggam^2)$ as $N(z_t; x_t, \siggam^2)$.
+      
+      \textbf{Hint 2}: You may cite the fact that 
+      \[N(x; \mu_a, \sigma^2_a)N(x; \mu_b, \sigma^2_b) = N\left(x; \frac{\sigma^2_b}{\sigma^2_a+\sigma^2_b}\mu_a + \frac{\sigma^2_a}{\sigma^2_a+\sigma^2_b}\mu_b, \ \left(\frac{1}{\sigma^2_a} + \frac{1}{\sigma^2_b}\right)^{-1}\right)\]
   \end{enumerate}
   \item Interpret $\mu_t$ in terms of how it combines observations from the past with the current observation. 
 \end{enumerate}
